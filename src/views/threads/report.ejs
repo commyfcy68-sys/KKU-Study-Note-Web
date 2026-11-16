@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CP KKU Study Notes</title>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+
+<main class="container">
+<h2>รายงานกระทู้: <%= thread.title %></h2>
+<form method="post">
+  <label>หัวข้อปัญหา <input name="title" required/></label>
+  <label>รายละเอียด <textarea name="body" rows="6" required></textarea></label>
+  <button class="danger">ส่งรายงาน</button>
+</form>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,555 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  font-family: "Kanit", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f5fbff;
+  color: #1b2a3a;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: #0d63a5;
+  text-decoration: none;
+}
+
+
+a:hover {
+  text-decoration: none;
+
+}
+
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eef7ff;
+  padding: 10px 16px;
+  border-bottom: 1px solid #cfe7ff;
+  position: sticky;
+  top: 0;
+  font-weight: 500;
+  font-size: 1.1rem;
+  z-index: 1100;
+  /* keep header above cards and other content */
+  /* small shadow to separate from content when overlapping */
+  box-shadow: 0 2px 6px rgba(11, 35, 55, 0.06);
+}
+
+.topbar a:hover {
+  text-decoration: none;
+  color: #073554;
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+
+.linklike {
+  background: none;
+  border: none;
+  color: #0d63a5;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #D0E7F5;
+  border-radius: 12px;
+  overflow: hidden;
+  display: block;
+}
+
+.card-container {
+  transition: transform .15s ease, box-shadow .2s ease;
+  border-radius: 12px;
+
+}
+
+.card-container:hover {
+  transform: translateY(-2px);
+  width: auto;
+  height: auto;
+
+}
+
+.cover {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  background: #dbeafe;
+}
+
+.cover-xl {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  background: #dbeafe;
+  border-radius: 12px;
+}
+
+
+
+.pad {
+  padding: 10px;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: .9em;
+}
+
+.search-btn {
+  padding: 8px 14px;
+  background: #0d63a5;
+  color: white;
+  border: none;
+  font-family: "Kanit", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+/* inline SVGs should match text size and align nicely */
+.icon-inline {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.12em;
+  /* nudge to better align with text baseline */
+  fill: currentColor;
+}
+
+/* meta lines for cards: author and stats on separate lines with tight spacing */
+.meta-line {
+  line-height: 2;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: .35rem
+}
+
+.meta-line.author {
+  font-size: .92rem;
+  color: #4b5563
+}
+
+.meta-line.stats {
+  font-size: .9rem;
+  color: #6b7280
+}
+
+.meta-line .stat-num {
+  margin-right: .2rem
+}
+
+.tags .tag {
+  display: inline-block;
+  background: #eaf5ff;
+  border: 1px solid #cfe7ff;
+  padding: 2px 6px;
+  border-radius: 999px;
+  margin-right: 4px;
+  margin-top: 4px;
+  font-size: .75rem;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.post {
+  background: white;
+  border: 1px solid #e6eef5;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.alert {
+  background: #fff3cd;
+  border: 1px solid #ffe69c;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+button,
+.button,
+select,
+input,
+textarea {
+  border-radius: 10px;
+  border: 1px solid #cfe7ff;
+  padding: 8px 10px;
+  font-family: "Kanit", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+}
+
+button,
+.button {
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  font-family: "Kanit", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+
+.danger {
+  background: #ef4444;
+}
+
+.table {
+  width: 100%;
+  background: white;
+  border: 1px solid #e6eef5;
+  border-radius: 12px;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid #e6eef5;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  background: white;
+  border: 1px solid #e6eef5;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+.inline {
+  display: inline-block;
+  margin-left: 6px;
+}
+
+.comments {
+  list-style: none;
+  padding: 0;
+}
+
+.read {
+  opacity: .6;
+}
+
+/* home */
+.hero {
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero p {
+  margin: 0;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #475569;
+  line-height: 1.4;
+}
+
+/* search page */
+
+
+.search-control {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-control h2 {
+  margin-right: auto;
+}
+
+.search-control input[type="text"] {
+  max-width: 300px;
+  padding: 8px 12px;
+  border: 1px solid #cfe7ff;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.search-control button {
+  padding: 8px 14px;
+  background: #0d63a5;
+  color: white;
+  border: none;
+  font-family: "Kanit", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.search-control button:hover {
+  background: #0a4e7a;
+  text-decoration: none;
+}
+
+.search-control select {
+  padding: 8px 12px;
+  border: 1px solid #cfe7ff;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+/* ปุ่ม สร้างโพส */
+
+.fab {
+  position: fixed;
+  right: clamp(16px, 3vw, 24px);
+  bottom: calc(clamp(16px, 3vw, 24px) + env(safe-area-inset-bottom));
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  background: #0284c7;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, .18), 0 6px 12px rgba(0, 0, 0, .12);
+  transition: box-shadow .2s ease, transform .15s ease, background-color .2s ease;
+  z-index: 1000;
+}
+
+.fab:hover {
+  background: #0d63a5;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 28px rgba(0, 0, 0, .22), 0 8px 14px rgba(0, 0, 0, .14);
+}
+
+.fab:active {
+  transform: translateY(0) scale(.98);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, .18), 0 6px 12px rgba(0, 0, 0, .12);
+}
+
+.fab:focus-visible {
+  outline: 3px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+.fab svg {
+  width: 44%;
+  height: 44%;
+  pointer-events: none;
+}
+
+
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #0d63a5;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.action-btn svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+.action-btn svg path {
+  stroke-width: 2;
+}
+
+.action-btn:hover {
+  background: #0a4e7a;
+  text-decoration: none;
+
+}
+
+
+
+/* Generic icon + text button to keep icons and labels visually balanced */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  /* space between icon and text */
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #0ea5e9;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  display: inline-block;
+}
+
+.icon-btn:where(a, button) {
+  text-decoration: none;
+}
+
+.icon-btn.small {
+  padding: 6px 8px;
+  gap: 6px;
+  font-size: .95rem;
+}
+
+
+
+/* ขนาดเล็กลงบนจอมือถือ */
+@media (max-width: 480px) {
+  .fab {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/*ปิด*/
+
+/*burger bar*/
+/* โครงสร้าง navbar ปรกติ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
+}
+
+.navbar a,
+.navbar .linklike {
+  /* color: white; */
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+/* Active nav link styling */
+.navbar a.active {
+  color: #0d63a5;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.linklike {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  /* color: white; */
+}
+
+/* burger button ซ่อนตอนจอใหญ่ */
+.burger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* side menu (ซ่อน default) */
+.side-menu {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  right: -250px;
+  background: #0d63a5;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu a,
+.side-menu .linklike {
+  padding: 12px 20px;
+  text-decoration: none;
+  color: white;
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.side-menu a.active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.side-menu .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Responsive: จอเล็ก */
+@media (max-width: 845px) {
+
+  .nav-left,
+  .nav-right {
+    display: none;
+    /* ซ่อนเมนูปรกติ */
+  }
+
+  .burger {
+    display: block;
+    /* โชว์ burger button */
+  }
+}
+
+/*ปิด*/

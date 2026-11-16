@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CP KKU Study Notes</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .like-btn.liked {
+      color: #DE3163;
+    }
+
+    .like-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1em;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .title-wrapper {
+      display: flex;
+      justify-content: space-between;
+      /* ดัน title ไปซ้าย เวลาไปขวา */
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title-wrapper h3 {
+      flex: 1;
+      /* ให้กินพื้นที่เหลือ */
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      white-space: nowrap;
+      /* กันขึ้นบรรทัดใหม่ */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* ถ้าเกิน → ... */
+    }
+
+    .post-time {
+      font-size: 0.8rem;
+      color: #6b7280;
+      /* เทาอ่อน */
+      white-space: nowrap;
+      /* ห้ามตัดบรรทัด */
+      flex-shrink: 0;
+      /* ไม่ให้ย่อเวลา */
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container" style="padding-bottom: 20px;">
+    <div class="hero">
+      <h1 style="color: #0f3d7a;">ยินดีต้อนรับสู่ CP KKU Study Notes</h1>
+      <p class="muted">แพลตฟอร์มแบ่งปันสรุปและความรู้สำหรับนักศึกษา</p>
+    </div>
+
+
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+      <div>
+        <% if ((typeof q !=='undefined' && q) || (typeof tag !=='undefined' && tag)) { %>
+          <h3 style="margin:0;">ผลลัพธ์การค้นหา <%= q ? `"${q}"` : '' %>
+              <%= tag ? `[${tag}]` : '' %>
+          </h3>
+          <% } else { %>
+            <h3 style="margin:0;">โพสต์ล่าสุด</h3>
+            <% } %>
+      </div>
+      <form class="row" method="get" action="/" style="gap:0.5rem;">
+        <input name="q" placeholder="คำค้นหา" value="<%= typeof q !== 'undefined' ? q : '' %>" />
+        <select name="tag">
+          <option value="">หมวดหมู่ทั้งหมด</option>
+          <% const selectedTag=typeof tag !=='undefined' ? tag : '' ;
+            ['CS','AI','IT','CY','GIS','Physics','Chemistry','Biology','Math','English','GE','Free'].forEach(t=>{
+            %>
+            <option value="<%= t %>" <%=selectedTag===t?'selected':'' %>><%= t %>
+            </option>
+            <% }) %>
+        </select>
+        <button class="search-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+          ค้นหา
+        </button>
+      </form>
+    </div>
+
+    <% if ((typeof q !=='undefined' && q) || (typeof tag !=='undefined' && tag)) { %>
+      <% if (posts.length===0) { %>
+        <p class="muted">ไม่พบผลลัพธ์</p>
+        <% } %>
+          <% } %>
+            <div class="grid">
+              <% posts.forEach(p=>{ %>
+                <div class="card-container">
+                  <a class="card" href="/posts/<%= p.slug %>">
+                  <% if (p.coverImage) { %>
+                    <img src="<%= p.coverImage %>" class="cover" />
+                  <% } else if (p.pdfFile) { %>
+                    <div class="pdf-preview d-flex flex-column justify-content-center align-items-center"
+                      style="height: 10px; background: #f8f9fa; border-radius: 10px;">
+                      <span class="text-muted fs-5">📄 <%= p.title %>.pdf</span>
+
+                    </div>
+                    <% } %>
+                        <div class="pad">
+                          <div class="title-wrapper">
+                            <h3 class="ellipsis meta-line">
+                              <%= p.title %>
+                            </h3>
+                            <span class="post-time" data-time="<%= new Date(p.createdAt).toISOString() %>"></span>
+
+                          </div>
+
+                          <p class="muted meta-line author">
+                            by <%= p.author?.username %>
+                          </p>
+                          <p class="muted meta-line stats">
+                            <% if (currentUser && Array.isArray(p.likes) && p.likes.map(id=>
+                              String(id)).includes(String(currentUser.id))) { %>
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon-inline bi bi-heart-fill"
+                                viewBox="0 0 16 16" aria-hidden="true" style="color:#DE3163;">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                              </svg>
+                              <% } else { %>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-inline bi bi-heart-fill"
+                                  viewBox="0 0 16 16" aria-hidden="true" style="color: #4b5563;">
+                                  <path fill-rule="evenodd"
+                                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                                </svg>
+                                <% } %>
+                                  <span class="stat-num like-count">
+                                    <%= p.likes.length %>
+                                  </span>
+                                  <span class="dot">·</span>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
+                                    style="color: #4b5563;" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                                    <path
+                                      d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9 9 0 0 0 8 15" />
+                                  </svg>
+                                  <span class="comment-count">
+                                    <%= p.comments ? p.comments.length : 0 %>
+                                  </span>
+                                  <span class="dot">·</span>
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon-inline bi bi-eye-fill"
+                                    style="color: #4b5563;" viewBox="0 0 16 16" aria-hidden="true">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                    <path
+                                      d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                  </svg>
+                                  <span class="stat-num">
+                                    <%= p.views %>
+                                  </span>
+                                  <button type="button"
+                                    class="like-btn<%= (currentUser && Array.isArray(p.likes) && p.likes.map(id => String(id)).includes(String(currentUser.id))) ? ' liked' : '' %>"
+                                    data-slug="<%= p.slug %>" aria-label="like" style="display:none;">♥</button>
+                          </p>
+
+                          <div class="tags">
+                            <% (p.tags||[]).forEach(t=>{ %><span class="tag">
+                                <%= t %>
+                              </span>
+                              <% }) %>
+                          </div>
+                        </div>
+                  </a>
+                </div>
+                <% }) %>
+            </div>
+  </main>
+
+  <a href="/posts/new" class="fab" aria-label="สร้างโพสต์ใหม่">
+    <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+      <path d="M11 5a1 1 0 0 1 2 0v6h6a1 1 0 1 1 0 2h-6v6a1 1 0 1 1-2 0v-6H5a1 1 0 1 1 0-2h6V5z" fill="currentColor" />
+    </svg>
+  </a>
+  </a>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', async function () {
+          const slug = this.dataset.slug;
+          const card = this.closest('.card-container');
+          try {
+            const res = await fetch(`/posts/${slug}/like`, { method: 'POST' });
+            if (res.ok) {
+              const data = await res.json();
+              // Find the like-count span in the same card
+              const likeCount = card.querySelector('.like-count');
+              if (likeCount) likeCount.textContent = data.likes;
+              // Toggle liked class
+              if (data.liked) {
+                this.classList.add('liked');
+              } else {
+                this.classList.remove('liked');
+              }
+            }
+          } catch (err) {
+            console.error('Like error', err);
+          }
+        });
+      });
+    });
+
+    (function () {
+      function timeAgo(input) {
+        const date = new Date(input);
+        const diffSec = Math.round((Date.now() - date.getTime()) / 1000);
+        const abs = Math.abs(diffSec);
+        if (abs < 45) return diffSec >= 0 ? "เมื่อสักครู่" : "อีกสักครู่";
+        const units = [
+          { s: 31536000, k: "ปี" },
+          { s: 2592000, k: "เดือน" },
+          { s: 604800, k: "สัปดาห์" },
+          { s: 86400, k: "วัน" },
+          { s: 3600, k: "ชั่วโมง" },
+          { s: 60, k: "นาที" },
+          { s: 1, k: "วินาที" },
+        ];
+        for (const u of units) {
+          if (abs >= u.s) {
+            const n = Math.floor(abs / u.s);
+            return diffSec >= 0 ? `${n} ${u.k}` : ` ${n} ${u.k}`;
+          }
+        }
+        return "เมื่อสักครู่";
+      }
+
+      function updateAll() {
+        document.querySelectorAll('.post-time[data-time]').forEach(el => {
+          el.textContent = timeAgo(el.getAttribute('data-time'));
+        });
+      }
+
+      updateAll();
+      setInterval(updateAll, 60000); // อัปเดตทุก 1 นาที
+    })();
+  </script>
+</body>
+
+</html>
